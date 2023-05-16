@@ -28,8 +28,8 @@ import pika
 from neon_mq_connector.connector import MQConnector
 from neon_mq_connector.utils.network_utils import dict_to_b64
 from neon_mq_connector.utils.rabbit_utils import create_mq_callback
-from chatgpt import ChatGPT
 
+from neon_llm_chatgpt.chatgpt import ChatGPT
 from neon_llm_chatgpt.config import load_config
 
 
@@ -42,7 +42,7 @@ class ChatgptMQ(MQConnector):
         chatgpt_config = config.get("ChatGPT", None)
         self.chatGPT = ChatGPT(chatgpt_config)
 
-        self.service_name = 'mq-chatgpt-api'
+        self.service_name = 'neon_llm_chatgpt'
 
         mq_config = config.get("MQ", None)
         super().__init__(config=mq_config, service_name=self.service_name)
