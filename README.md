@@ -28,7 +28,7 @@ MQ:
     mq-chatgpt-api:
       password: <neon_chatgpt user's password>
       user: neon_chatgpt
-ChatGPT:
+LLM_CHATGPT:
   key: ""
   model: "gpt-3.5-turbo"
   role: "You are trying to give a short answer in less than 40 words."
