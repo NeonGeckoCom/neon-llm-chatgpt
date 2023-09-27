@@ -126,7 +126,7 @@ class ChatGPT(NeonLLM):
         scores_list = distances_from_embeddings(question_embeddings, answers_embeddings)
         return scores_list
 
-    def _embeddings(self, question: str, answers: List[str]) -> (List[str], List[List[float]]):
+    def _embeddings(self, question: str, answers: List[str]) -> (List[float], List[List[float]]):
         """
             Computes embeddings for the list of provided answers
             :param question: Question for LLM to response to
