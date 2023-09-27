@@ -77,7 +77,7 @@ class ChatGPT(NeonLLM):
         sorted_items_indexes = [x[0] for x in sorted_items]
         return sorted_items_indexes
 
-    def _call_model(self, prompt: List[Dict[str]]) -> str:
+    def _call_model(self, prompt: List[Dict[str, str]]) -> str:
         """
             Wrapper for ChatGPT Model generation logic
             :param prompt: Input messages sequence
@@ -94,7 +94,7 @@ class ChatGPT(NeonLLM):
 
         return text
 
-    def _assemble_prompt(self, message: str, chat_history: List[List[str]]) -> List[Dict[str]]:
+    def _assemble_prompt(self, message: str, chat_history: List[List[str]]) -> List[Dict[str, str]]:
         """
             Assembles prompt engineering logic
             Setup Guidance:
