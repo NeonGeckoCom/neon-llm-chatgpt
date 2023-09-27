@@ -49,11 +49,23 @@ class ChatGPT(NeonLLM):
         self.warmup()
 
     @property
+    def tokenizer(self) -> None:
+        return self._tokenizer
+
+    @property
+    def tokenizer_model_name(self) -> str:
+        return ""
+
+    @property
     def model(self) -> openai:
         if self._model is None:
             openai.api_key = self.api_key
             self._model = openai
         return self._model
+
+    @property
+    def llm_model_name(self) -> str:
+        return self.model_name
 
     @property
     def _system_prompt(self) -> str:
@@ -85,7 +97,7 @@ class ChatGPT(NeonLLM):
         """
 
         response = openai.ChatCompletion.create(
-            model=self.model_name,
+            model=self.llm_model_name,
             messages=prompt,
             temperature=0,
             max_tokens=self.max_tokens,
@@ -125,6 +137,9 @@ class ChatGPT(NeonLLM):
         question_embeddings, answers_embeddings = self._embeddings(question=prompt, answers=targets)
         scores_list = distances_from_embeddings(question_embeddings, answers_embeddings)
         return scores_list
+
+    def _tokenize(self, prompt: str) -> None:
+        return None
 
     def _embeddings(self, question: str, answers: List[str]) -> (List[float], List[List[float]]):
         """
