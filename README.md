@@ -34,6 +34,7 @@ LLM_CHATGPT:
   role: "You are trying to give a short answer in less than 40 words."
   context_depth: 3
   max_tokens: 100
+  num_parallel_processes: 2
 ```
 
 For example, if your configuration resides in `~/.config`:
