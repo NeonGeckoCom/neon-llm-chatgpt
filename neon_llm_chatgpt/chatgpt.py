@@ -40,7 +40,7 @@ class ChatGPT(NeonLLM):
 
     def __init__(self, config):
         super().__init__(config)
-        self.model = config["model"]
+        self.model_name = config["model"]
         self.role = config["role"]
         self.context_depth = config["context_depth"]
         self.max_tokens = config["max_tokens"]
@@ -85,7 +85,7 @@ class ChatGPT(NeonLLM):
         """
 
         response = openai.ChatCompletion.create(
-            model=self.model,
+            model=self.model_name,
             messages=prompt,
             temperature=0,
             max_tokens=self.max_tokens,
