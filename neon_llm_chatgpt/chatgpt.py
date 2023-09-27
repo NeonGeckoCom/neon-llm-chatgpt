@@ -84,7 +84,7 @@ class ChatGPT(NeonLLM):
         """
         if not answers:
             return []
-        scores = self._score(question=question, answers=answers)
+        scores = self._score(prompt=question, targets=answers)
         sorted_items = sorted(zip(range(len(answers)), scores), key=lambda x: x[1])
         sorted_items_indexes = [x[0] for x in sorted_items]
         return sorted_items_indexes
