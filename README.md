@@ -25,10 +25,10 @@ MQ:
   port: <MQ Port>
   server: <MQ Hostname or IP>
   users:
-    mq-chatgpt-api:
+    neon_llm_chat_gpt:
       password: <neon_chatgpt user's password>
       user: neon_chatgpt
-LLM_CHATGPT:
+LLM_CHAT_GPT:
   key: ""
   model: "gpt-3.5-turbo"
   role: "You are trying to give a short answer in less than 40 words."
