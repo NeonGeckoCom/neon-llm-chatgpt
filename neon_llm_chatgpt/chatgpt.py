@@ -139,7 +139,7 @@ class ChatGPT(NeonLLM):
         return scores_list
 
     def _tokenize(self, prompt: str) -> None:
-        return None
+        pass
 
     def _embeddings(self, question: str, answers: List[str]) -> (List[float], List[List[float]]):
         """
