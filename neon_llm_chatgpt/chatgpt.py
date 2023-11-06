@@ -45,7 +45,6 @@ class ChatGPT(NeonLLM):
         self.context_depth = config["context_depth"]
         self.max_tokens = config["max_tokens"]
         self.api_key = config["key"]
-        self.num_parallel_processes = config["num_parallel_processes"]
         self.warmup()
 
     @property
