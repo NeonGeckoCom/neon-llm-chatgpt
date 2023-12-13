@@ -1,4 +1,4 @@
-log_level: INFO
+log_level: DEBUG
 logs:
   level_overrides:
     error:
@@ -8,7 +8,7 @@ logs:
     info: []
     debug: []
 MQ:
-  server: api.neon.ai
+  server: neon-rabbitmq
   port: 5672
   users:
     mq_handler:
@@ -20,3 +20,9 @@ LLM_CHAT_GPT:
   context_depth: 3
   max_tokens: 100
   num_parallel_processes: 2
+llm_bots:
+  chat_gpt:
+    - name: assistant
+      description: You are a personal assistant who responds in 40 words or less
+    - name: author
+      description: You will respond as an author and expert in literary history
