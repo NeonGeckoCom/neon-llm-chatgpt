@@ -39,7 +39,7 @@ class ChatgptMQ(NeonLLMMQConnector):
 
     @property
     def name(self):
-        return "chat_gpt"
+        return "chatgpt"
 
     @property
     def model(self):
