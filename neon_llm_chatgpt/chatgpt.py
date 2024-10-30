@@ -29,7 +29,7 @@ from openai.embeddings_utils import get_embeddings, distances_from_embeddings
 
 from typing import List, Dict
 from neon_llm_core.llm import NeonLLM
-from ovos_utils.log import LOG
+from neon_utils.logger import LOG
 
 
 class ChatGPT(NeonLLM):
