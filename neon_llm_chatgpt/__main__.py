@@ -31,10 +31,9 @@ from neon_utils.log_utils import init_log
 def main():
     init_log(log_name="chatgpt")
     # Run RabbitMQ
-    chatgptMQ = ChatgptMQ()
-    chatgptMQ.run(run_sync=False, run_consumers=True,
-                  daemonize_consumers=True)
-    chatgptMQ.observer_thread.join()
+    chatgpt_mq_service = ChatgptMQ()
+    chatgpt_mq_service.run(run_sync=False, run_consumers=True,
+                           daemonize_consumers=True)
 
 
 if __name__ == "__main__":
