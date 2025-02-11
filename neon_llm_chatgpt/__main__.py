@@ -32,8 +32,9 @@ def main():
     init_log(log_name="chatgpt")
     # Run RabbitMQ
     chatgpt_mq_service = ChatgptMQ()
-    chatgpt_mq_service.run(run_sync=False, run_consumers=True,
-                           daemonize_consumers=True)
+    chatgpt_mq_service.run(run_sync=False,
+                           run_observer=False,
+                           daemonize_consumers=False)
 
 
 if __name__ == "__main__":
