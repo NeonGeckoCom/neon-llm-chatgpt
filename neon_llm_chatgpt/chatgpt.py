@@ -150,7 +150,7 @@ class ChatGPT(NeonLLM):
             :returns ppl values for each answer
         """
         response = self.ask(question, [], persona=persona)
-        texts = [response] + answers
+        texts = [response] + answers if response else answers
         embeddings = get_embeddings(texts, engine="text-embedding-ada-002")
         question_embeddings = embeddings[0]
         answers_embeddings = embeddings[1:]
