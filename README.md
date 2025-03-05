@@ -25,16 +25,33 @@ MQ:
   port: <MQ Port>
   server: <MQ Hostname or IP>
   users:
-    mq-chatgpt-api:
+    neon_llm_chat_gpt:
       password: <neon_chatgpt user's password>
       user: neon_chatgpt
-ChatGPT:
+LLM_CHAT_GPT:
   key: ""
   model: "gpt-3.5-turbo"
   role: "You are trying to give a short answer in less than 40 words."
   context_depth: 3
   max_tokens: 100
+  num_parallel_processes: 2
 ```
+
+To add support for Chatbotsforum personas, a list of names and prompts can be added
+to configuration:
+```yaml
+llm_bots:
+  chat_gpt:
+    - name: tutor
+      description: |
+        You are an AI bot that specializes in tutoring and guiding learners.
+        Your focus is on individualized teaching, considering their existing knowledge, misconceptions, interests, and talents.
+        Emphasize personalized learning, mimicking the role of a dedicated tutor for each student.
+        You're attempting to provide a concise response within a 40-word limit.
+```
+> `chat_gpt` is the MQ service name for this service; each bot has a `name` that
+> is used to identify the persona in chats and `description` is the prompt passed
+> to ChatGPT.
 
 For example, if your configuration resides in `~/.config`:
 ```shell

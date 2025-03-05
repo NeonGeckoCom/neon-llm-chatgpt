@@ -1,6 +1,6 @@
 # NEON AI (TM) SOFTWARE, Software Development Kit & Application Development System
 # All trademark and other rights reserved by their respective owners
-# Copyright 2008-2021 Neongecko.com Inc.
+# Copyright 2008-2025 Neongecko.com Inc.
 # BSD-3
 # Redistribution and use in source and binary forms, with or without
 # modification, are permitted provided that the following conditions are met:
@@ -25,14 +25,16 @@
 # SOFTWARE,  EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
 
 from neon_llm_chatgpt.rmq import ChatgptMQ
+from neon_utils.log_utils import init_log
 
 
 def main():
+    init_log(log_name="chatgpt")
     # Run RabbitMQ
-    chatgptMQ = ChatgptMQ()
-    chatgptMQ.run(run_sync=False, run_consumers=True,
-                  daemonize_consumers=True)
-    chatgptMQ.observer_thread.join()
+    chatgpt_mq_service = ChatgptMQ()
+    chatgpt_mq_service.run(run_sync=False,
+                           run_observer=False,
+                           daemonize_consumers=False)
 
 
 if __name__ == "__main__":

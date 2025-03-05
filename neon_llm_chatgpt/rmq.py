@@ -1,6 +1,6 @@
 # NEON AI (TM) SOFTWARE, Software Development Kit & Application Development System
 # All trademark and other rights reserved by their respective owners
-# Copyright 2008-2021 Neongecko.com Inc.
+# Copyright 2008-2025 Neongecko.com Inc.
 # BSD-3
 # Redistribution and use in source and binary forms, with or without
 # modification, are permitted provided that the following conditions are met:
@@ -23,71 +23,39 @@
 # LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT (INCLUDING
 # NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
 # SOFTWARE,  EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.
-
-import pika
-
-from neon_mq_connector.connector import MQConnector
-from neon_mq_connector.utils.network_utils import dict_to_b64
-from neon_mq_connector.utils.rabbit_utils import create_mq_callback
-from ovos_utils.log import LOG
+from neon_llm_core.rmq import NeonLLMMQConnector
 
 from neon_llm_chatgpt.chatgpt import ChatGPT
-from neon_llm_chatgpt.config import load_config
 
 
-class ChatgptMQ(MQConnector):
+class ChatgptMQ(NeonLLMMQConnector):
     """
-    Module for processing MQ requests from PyKlatchat to LibreTranslate"""
+        Module for processing MQ requests to ChatGPT
+    """
 
     def __init__(self):
-        config = load_config()
-        chatgpt_config = config.get("ChatGPT", None)
-        self.chatGPT = ChatGPT(chatgpt_config)
+        super().__init__()
+        self.warmup()
 
-        self.service_name = 'neon_llm_chatgpt'
+    @property
+    def name(self):
+        return "chat_gpt"
 
-        mq_config = config.get("MQ", None)
-        super().__init__(config=mq_config, service_name=self.service_name)
+    @property
+    def model(self):
+        if self._model is None:
+            self._model = ChatGPT(self.model_config)
+        return self._model
 
-        self.vhost = "/llm"
-        self.queue = "chat_gpt_input"
-        self.register_consumer(name=self.service_name,
-                               vhost=self.vhost,
-                               queue=self.queue,
-                               callback=self.handle_request,
-                               on_error=self.default_error_handler,
-                               auto_ack=False)
-
-    @create_mq_callback(include_callback_props=('channel', 'method', 'body'))
-    def handle_request(self,
-                       channel: pika.channel.Channel,
-                       method: pika.spec.Basic.Return,
-                       body: dict):
+    def warmup(self):
         """
-        Handles requests from MQ to ChatGPT received on queue
-        "request_chatgpt"
-
-        :param channel: MQ channel object (pika.channel.Channel)
-        :param method: MQ return method (pika.spec.Basic.Return)
-        :param body: request body (dict)
+        Initialize this LLM to be ready to provide responses
         """
-        message_id = body["message_id"]
-        routing_key = body["routing_key"]
+        _ = self.model
 
-        query = body["query"]
-        history = body["history"]
-
-        response = self.chatGPT.ask(message=query, chat_history=history)
-
-        api_response = {
-            "message_id": message_id,
-            "response": response
-        }
-
-        channel.basic_publish(exchange='',
-                              routing_key=routing_key,
-                              body=dict_to_b64(api_response),
-                              properties=pika.BasicProperties(
-                                  expiration=str(1000)))
-        channel.basic_ack(method.delivery_tag)
-        LOG.info(f"Handled request: {message_id}")
+    @staticmethod
+    def compose_opinion_prompt(respondent_nick: str, question: str,
+                               answer: str) -> str:
+        return (f'You have been given this good answer "{answer}" to the question "{question}" '
+                f'by the discussion participant named "{respondent_nick}". '
+                f'Give reasons why the answer provided by "{respondent_nick}" is the best answer.')
