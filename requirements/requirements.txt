@@ -1,5 +1,6 @@
 # model
 openai[embeddings]~=0.27
 # networking
-neon-llm-core[chatbots]~=0.2
-neon-utils[sentry]~=1.12
+#neon-llm-core[chatbots]~=0.2
+neon-llm-core[chatbots] @ git+https://github.com/neongeckocom/neon-llm-core@FEAT_HealthChecks#egg=neon-llm-core
+neon-utils[sentry]~=1.12,>=1.12.2a2
