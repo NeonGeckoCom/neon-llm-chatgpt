@@ -8,3 +8,5 @@ on:
 jobs:
   license_tests:
     uses: neongeckocom/.github/.github/workflows/license_tests.yml@master
+    with:
+      packages-exclude: '^(neon-llm|tqdm|klat-connector|neon-chatbot|dnspython|attrs|RapidFuzz|click|pillow|types-pytz|typing-inspection|typing_inspection|urllib).*'
