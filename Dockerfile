@@ -12,7 +12,6 @@ ENV HEALTHCHECK_PORT=8000
 
 COPY docker_overlay/ /
 RUN apt-get update && apt-get install -y \
-    git \
     curl \
     jq
 
