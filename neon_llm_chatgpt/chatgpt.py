@@ -27,7 +27,7 @@
 import numpy as np
 import openai
 
-from typing import List, Dict
+from typing import List, Dict, Optional, Tuple
 from neon_llm_core.llm import NeonLLM
 from neon_utils.logger import LOG
 
@@ -158,7 +158,7 @@ class ChatGPT(NeonLLM):
     def _tokenize(self, prompt: str) -> None:
         pass
 
-    def _embeddings(self, question: str, answers: List[str], persona: dict) -> tuple:
+    def _embeddings(self, question: str, answers: List[str], persona: dict) -> Tuple[Optional[List[float]], Optional[List[List[float]]]]:
         """
             Computes embeddings for the model's answer and the provided answers.
             :param question: Question for LLM to respond to
