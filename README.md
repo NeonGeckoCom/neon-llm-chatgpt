@@ -1,5 +1,5 @@
 # NeonAI LLM ChatGPT
-Proxies API calls to ChatGPT.
+Proxies API calls to ChatGPT or any OpenAI-compatible chat completions endpoint.
 
 ## Request Format
 API requests should include `history`, a list of tuples of strings, and the current
@@ -35,7 +35,17 @@ LLM_CHAT_GPT:
   context_depth: 3
   max_tokens: 100
   num_parallel_processes: 2
+  base_url: ""
+  embedding_model: "text-embedding-ada-002"
 ```
+
+To target an OpenAI-compatible server (vLLM, LM Studio, Ollama, Azure OpenAI,
+etc.) instead of OpenAI, set `base_url` to that server's endpoint (e.g.
+`http://localhost:8000/v1`) and `model` to a model it serves. Leave `base_url`
+empty to use OpenAI. Answer scoring (used by the chatbot vote/discuss features)
+calls the endpoint's `/embeddings` route using `embedding_model`; if the server
+does not implement embeddings, scoring degrades to input order and chat
+responses are unaffected.
 
 To add support for Chatbotsforum personas, a list of names and prompts can be added
 to configuration:
