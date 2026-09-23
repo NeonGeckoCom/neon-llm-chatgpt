@@ -1,5 +1,6 @@
 # model
-openai[embeddings]~=0.27
+openai~=1.37
+numpy~=1.26
 # networking
 neon-llm-core[chatbots]~=0.2,>=0.2.1a2
 neon-utils[sentry]~=1.12,>=1.12.2a2

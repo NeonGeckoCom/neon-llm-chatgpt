@@ -25,6 +25,8 @@ LLM_CHAT_GPT:
   context_depth: 3
   max_tokens: 100
   num_parallel_processes: 2
+  base_url: ""
+  embedding_model: "text-embedding-ada-002"
 llm_bots:
   chat_gpt:
     - name: urban_logic
